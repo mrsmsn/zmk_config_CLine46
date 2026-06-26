@@ -58,7 +58,7 @@
         };
 
         comb_esc {
-            bindings = <&kp LS(ESCAPE)>;
+            bindings = <&kp ESCAPE>;
             key-positions = <1 2>;          // Q + W
         };
 
