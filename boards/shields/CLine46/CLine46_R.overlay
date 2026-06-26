@@ -68,7 +68,8 @@
         //<&zip_xy_transform INPUT_TRANSFORM_Y_INVERT>;         //Y軸反転
         //<&zip_xy_transform INPUT_TRANSFORM_XY_SWAP>,        //X軸とY軸の入れ替え
         <&zip_xy_transform INPUT_TRANSFORM_X_INVERT>;       //X軸反転
-        //<&zip_temp_layer 2 1000>;                            //オートマウスレイヤーの選択;
+        // オートマウスは mouse_runtime_input_processor の temp-layer 機能で実現
+        // (下部の &mouse_runtime_input_processor 参照)。
 
     // FUNCTION レイヤー(lt1/lt5)の &mo 8 を押している間だけ SCROLL レイヤー(8)が
     // 有効になり、トラックボールがスクロール入力に切り替わる。
@@ -81,4 +82,12 @@
             //<&zip_scroll_transform INPUT_TRANSFORM_Y_INVERT>,   //スクロールのY軸反転
             <&zip_scroll_scaler 1 8>;                           //スクロール量を1/8倍
     };
+};
+
+// オートマウス: トラックボールを動かすと自動で FUNCTION レイヤー(1)が有効になる。
+&mouse_runtime_input_processor {
+    temp-layer-enabled;
+    temp-layer = <1>;                          // JIS_FUNCTION（マウスボタンは US_FUNCTION と同一）
+    temp-layer-activation-delay-ms = <100>;    // 移動開始から有効化までの遅延
+    temp-layer-deactivation-delay-ms = <500>;  // 移動停止から解除までの遅延
 };
