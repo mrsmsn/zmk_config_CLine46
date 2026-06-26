@@ -71,10 +71,10 @@
         // オートマウスは mouse_runtime_input_processor の temp-layer 機能で実現
         // (下部の &mouse_runtime_input_processor 参照)。
 
-    // FUNCTION レイヤー(lt1/lt5)の &mo 8 を押している間だけ SCROLL レイヤー(8)が
+    // FUNCTION/MOUSE レイヤーの &mo 9 を押している間だけ SCROLL レイヤー(9)が
     // 有効になり、トラックボールがスクロール入力に切り替わる。
     scroller {
-        layers = <8>;
+        layers = <9>;
         input-processors =
             <&zip_xy_transform INPUT_TRANSFORM_Y_INVERT>,       //Y軸反転
             <&zip_xy_to_scroll_mapper>,                         //スクロールモードに変更
@@ -84,10 +84,11 @@
     };
 };
 
-// オートマウス: トラックボールを動かすと自動で FUNCTION レイヤー(1)が有効になる。
+// オートマウス: トラックボールを動かすと自動で MOUSE レイヤー(8)が有効になる。
+// MOUSE は MB ボタン専用なので、誤爆しにくく FUNCTION レイヤーとも独立。
 &mouse_runtime_input_processor {
     temp-layer-enabled;
-    temp-layer = <1>;                          // JIS_FUNCTION（マウスボタンは US_FUNCTION と同一）
-    temp-layer-activation-delay-ms = <50>;    // 移動開始から有効化までの遅延
+    temp-layer = <8>;                          // 専用 MOUSE レイヤー
+    temp-layer-activation-delay-ms = <50>;     // 移動開始から有効化までの遅延
     temp-layer-deactivation-delay-ms = <200>;  // 移動停止から解除までの遅延
 };

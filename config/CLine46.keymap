@@ -16,12 +16,16 @@
  *     J/K/L/; = Gui/Alt/Shift/Ctrl (mirrored).
  *   - cool642tb MOUSE layer is merged into the FUNCTION layers: &mkp buttons
  *     live on the right hand, so lt1/lt5 give cursor + click.
- *   - SCROLL layer (8) is held via &mo 8 on the FUNCTION layers to turn the
- *     trackball into scroll input; BT controls live on the FUNCTION layers.
+ *   - MOUSE layer (8) is a dedicated auto-mouse target (trackball movement
+ *     activates it via temp-layer; see CLine46_R.overlay). Only &mkp buttons
+ *     plus &mo 9 (scroll); everything else transparent.
+ *   - SCROLL layer (9) is held via &mo 9 (on the FUNCTION and MOUSE layers) to
+ *     turn the trackball into scroll input; BT controls live on FUNCTION.
  *   - sensor-bindings removed (CLine46 has no rotary encoder).
  *
  * Layers: 0 default(JIS) 1 JIS_FUNCTION 2 JIS_NUM 3 JIS_SYMBOL
  *         4 US_default    5 US_FUNCTION  6 US_NUM  7 US_SYMBOL
+ *         8 MOUSE (auto-mouse target)    9 SCROLL
  */
 
 #define JP_DQT          AT                // "
@@ -108,7 +112,7 @@
         JIS_FUNCTION {
             bindings = <
 &kp ESC    &trans       &kp F7       &kp F8       &kp F9 &kp F12                                      &trans         &kp JP_UNDERSCORE &kp JP_PLUS &kp MINUS      &kp JP_EQUAL &kp MINUS
-&kp LCTRL  &trans       &kp LA(F4)   &kp F5       &kp F6 &kp F11                                      &mkp MB2       &mkp MB1          &mo 8       &mkp MB3       &trans       &kp ENTER
+&kp LCTRL  &trans       &kp LA(F4)   &kp F5       &kp F6 &kp F11                                      &mkp MB2       &mkp MB1          &mo 9       &mkp MB3       &trans       &kp ENTER
 &kp LSHIFT &trans       &kp F1       &kp F2       &kp F3 &kp F10                                      &kp LG(LS(S))  &mkp MB4          &mkp MB5    &trans         &trans       &kp RSHIFT
            &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &trans &bt BT_SEL 3 &bt BT_SEL 4          &trans    &trans                                       &bt BT_CLR_ALL &to 4
             >;
@@ -144,7 +148,7 @@
         US_FUNCTION {
             bindings = <
 &kp ESC    &trans  &kp F7     &kp F8 &kp F9      &kp F12                                              &trans        &kp UNDERSCORE &kp PLUS &kp MINUS      &kp EQUAL &kp MINUS
-&kp LCTRL  &trans  &kp LA(F4) &kp F5 &kp F6      &kp F11                                              &mkp MB2      &mkp MB1       &mo 8    &mkp MB3       &trans    &kp ENTER
+&kp LCTRL  &trans  &kp LA(F4) &kp F5 &kp F6      &kp F11                                              &mkp MB2      &mkp MB1       &mo 9    &mkp MB3       &trans    &kp ENTER
 &kp LSHIFT &trans  &kp F1     &kp F2 &kp F3      &kp F10                                              &kp LG(LS(S)) &mkp MB4       &mkp MB5 &trans         &trans    &kp RSHIFT
            &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &trans &bt BT_SEL 3 &bt BT_SEL 4          &trans    &trans                                &bt BT_CLR_ALL &to 0
             >;
@@ -168,7 +172,18 @@
             >;
         };
 
-        // Held via &mo 8 on the FUNCTION layers; while active the trackball
+        // オートマウス専用レイヤー(temp-layer のターゲット)。
+        // MB ボタンと &mo 9(スクロール起動)のみ。他は素通し。
+        MOUSE {
+            bindings = <
+&trans     &trans  &trans   &trans   &trans      &trans                                               &trans   &trans   &trans   &trans   &trans &trans
+&trans     &trans  &trans   &trans   &trans      &trans                                               &mkp MB2 &mkp MB1 &mo 9    &mkp MB3 &trans &trans
+&trans     &trans  &trans   &trans   &trans      &trans                                               &trans   &mkp MB4 &mkp MB5 &trans   &trans &trans
+           &trans  &trans   &trans   &trans      &trans       &trans                &trans            &trans                   &trans  &trans
+            >;
+        };
+
+        // Held via &mo 9 on the FUNCTION layers; while active the trackball
         // scrolls (see the scroller node in CLine46_R.overlay). All keys are
         // transparent so the underlying layer stays usable.
         SCROLL {
