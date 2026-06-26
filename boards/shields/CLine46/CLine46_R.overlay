@@ -88,6 +88,6 @@
 &mouse_runtime_input_processor {
     temp-layer-enabled;
     temp-layer = <1>;                          // JIS_FUNCTION（マウスボタンは US_FUNCTION と同一）
-    temp-layer-activation-delay-ms = <100>;    // 移動開始から有効化までの遅延
-    temp-layer-deactivation-delay-ms = <500>;  // 移動停止から解除までの遅延
+    temp-layer-activation-delay-ms = <50>;    // 移動開始から有効化までの遅延
+    temp-layer-deactivation-delay-ms = <200>;  // 移動停止から解除までの遅延
 };
