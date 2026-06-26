@@ -70,6 +70,15 @@
         <&zip_xy_transform INPUT_TRANSFORM_X_INVERT>;       //X軸反転
         //<&zip_temp_layer 2 1000>;                            //オートマウスレイヤーの選択;
 
-    // SCROLL レイヤーは廃止。トラックボールは常時カーソル移動とし、
-    // クリックは FUNCTION レイヤー(lt1/lt5)の &mkp キーで行う。
+    // FUNCTION レイヤー(lt1/lt5)の &mo 8 を押している間だけ SCROLL レイヤー(8)が
+    // 有効になり、トラックボールがスクロール入力に切り替わる。
+    scroller {
+        layers = <8>;
+        input-processors =
+            <&zip_xy_transform INPUT_TRANSFORM_Y_INVERT>,       //Y軸反転
+            <&zip_xy_to_scroll_mapper>,                         //スクロールモードに変更
+            <&zip_scroll_transform INPUT_TRANSFORM_X_INVERT>,   //スクロールのX軸反転
+            //<&zip_scroll_transform INPUT_TRANSFORM_Y_INVERT>,   //スクロールのY軸反転
+            <&zip_scroll_scaler 1 8>;                           //スクロール量を1/8倍
+    };
 };
