@@ -12,7 +12,8 @@
  *   - The 5x3 alpha block maps 1:1. cool642tb inner-column keys are relocated.
  *   - CLine46 outer pinky columns are &trans, except the left home-row outer
  *     key holds the JIS<->US set toggle (&to 4 / &to 0).
- *   - No home-row mods on the base alphas (plain &kp).
+ *   - Home-row mods (hm) on the base alphas: A/S/D/F = Ctrl/Shift/Alt/Gui,
+ *     J/K/L/; = Gui/Alt/Shift/Ctrl (mirrored).
  *   - cool642tb MOUSE layer is merged into the FUNCTION layers: &mkp buttons
  *     live on the right hand, so lt1/lt5 give cursor + click.
  *   - SCROLL layer (8) is held via &mo 8 on the FUNCTION layers to turn the
@@ -50,6 +51,17 @@
 };
 
 / {
+    behaviors {
+        hm: home_row_mods {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            tapping-term-ms = <200>;
+            quick-tap-ms = <175>;
+            flavor = "balanced";
+            bindings = <&kp>, <&kp>;
+        };
+    };
+
     combos {
         compatible = "zmk,combos";
 
@@ -86,9 +98,9 @@
 
         default_layer {
             bindings = <
-&kp TAB    &kp Q   &kp W    &kp E    &kp R       &kp T                                                &kp Y   &kp U  &kp I     &kp O   &kp P     &kp MINUS
-&kp LCTRL  &kp A   &kp S    &kp D    &kp F       &kp G                                                &kp H   &kp J  &kp K     &kp L   &kp SEMI  &kp ENTER
-&kp LSHIFT &kp Z   &kp X    &kp C    &kp V       &kp B                                                &kp N   &kp M  &kp COMMA &kp DOT &kp SLASH &kp RSHIFT
+&kp TAB    &kp Q       &kp W       &kp E      &kp R      &kp T                                        &kp Y   &kp U      &kp I      &kp O       &kp P          &kp MINUS
+&kp LCTRL  &hm LCTRL A &hm LSHFT S &hm LALT D &hm LGUI F &kp G                                        &kp H   &hm RGUI J &hm RALT K &hm RSHFT L &hm RCTRL SEMI &kp ENTER
+&kp LSHIFT &kp Z       &kp X       &kp C      &kp V      &kp B                                        &kp N   &kp M      &kp COMMA  &kp DOT     &kp SLASH      &kp RSHIFT
            &to 4   &kp LALT &kp LGUI &lt 1 BSPC  &lt 2 SPACE  &lt 3 LANGUAGE_2      &lt 3 LANGUAGE_1  &lt 2 TAB                &trans  &kp ESC
             >;
         };
@@ -122,9 +134,9 @@
 
         US_default {
             bindings = <
-&kp TAB    &kp Q   &kp W    &kp E    &kp R       &kp T                                                &kp Y   &kp U  &kp I     &kp O   &kp P     &kp MINUS
-&kp LCTRL  &kp A   &kp S    &kp D    &kp F       &kp G                                                &kp H   &kp J  &kp K     &kp L   &kp ENTER &kp ENTER
-&kp LSHIFT &kp Z   &kp X    &kp C    &kp V       &kp B                                                &kp N   &kp M  &kp COMMA &kp DOT &kp SLASH &kp RSHIFT
+&kp TAB    &kp Q       &kp W       &kp E      &kp R      &kp T                                        &kp Y   &kp U      &kp I      &kp O       &kp P           &kp MINUS
+&kp LCTRL  &hm LCTRL A &hm LSHFT S &hm LALT D &hm LGUI F &kp G                                        &kp H   &hm RGUI J &hm RALT K &hm RSHFT L &hm RCTRL ENTER &kp ENTER
+&kp LSHIFT &kp Z       &kp X       &kp C      &kp V      &kp B                                        &kp N   &kp M      &kp COMMA  &kp DOT     &kp SLASH       &kp RSHIFT
            &to 0   &kp LALT &kp LGUI &lt 5 BSPC  &lt 6 SPACE  &lt 7 LANGUAGE_2      &lt 7 LANGUAGE_1  &lt 6 TAB                &trans  &kp ESC
             >;
         };
