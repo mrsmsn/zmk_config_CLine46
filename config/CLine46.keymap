@@ -88,13 +88,6 @@
             bindings = <&kp BACKSPACE>;
             key-positions = <9 10>;         // O + P
         };
-
-        comb_bt_clr_all {
-            bindings = <&bt BT_CLR_ALL>;
-            key-positions = <9 10>;         // O + P (on NUM layers)
-            timeout-ms = <0>;
-            layers = <2 6>;
-        };
     };
 
     keymap {
